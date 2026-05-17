@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <style type="text/css">
+        body {
+            text-align:center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Time Tester 3000</h1>
+
+    <p>Current time:</p>
+    <p id="current_time_display">&nbsp;</p>
+    <p>Target time:</p>
+    <p id="target_time_display">&nbsp;</p>
+    <p>Time remaining:</p>
+    <input style="width: 50px" id="minutes_input" type="number" name="minutes" max="59" onKeyPress="if(this.value.length==2) return false;">
+    :
+    <input style="width: 50px" id="seconds_input" type="number" name="seconds" max="59" onKeyPress="if(this.value.length==2) return false;">
+    <br><br>
+    <button id="ENTER" onclick="ENTER_func()">ENTER</button>
+
+    <p>Error:</p>
+    <p id="difference_time_display">&nbsp;</p>
+</body>
+
+<script>
+    
+    class time {
+        constructor(hrs, mins, secs){
+            this.hrs = hrs
+            this.mins = mins
+            this.secs = secs
+        };
+        get getTimeSeconds(){
+            return this.hrs*3600 + this.mins*60 + this.secs
+        };
+        set setTimeFromSeconds(seconds){
+            this.hrs = Math.floor(seconds/3600)
+            this.hrs = Math.floor((seconds%3600)/60)
+            this.secs = seconds % 60
+        }
+        get getString(){
+            return `${this.hrs}:${this.mins}:${this.secs}`
+        };
+    };
+
+    function setTimes() {
+        targetTime = new time(Math.floor(Math.random()*20)+4, Math.floor(Math.random()*60), Math.floor(Math.random()*60));
+        let targetTimeSeconds = targetTime.getTimeSeconds();
+
+        currTime = new time(0, 0, 0);
+        difference = Math.floor(Math.random()*3600);
+        console.log('\n\n',targetTimeSeconds);
+        console.log(difference);
+        console.log(targetTimeSeconds-difference);
+        seconds = targetTimeSeconds-difference
+        currTime.setTimeFromSeconds(targetTimeSeconds - difference);
+        console.log(currTime.hrs, currTime.mins, currTime.secs)
+        console.log(Math.floor(seconds/3600), Math.floor((seconds%3600)/60), seconds % 60)
+        console.log(currTime.getTimeSeconds())
+
+        document.getElementById('current_time_display').innerText = currTime.getString()
+        document.getElementById('target_time_display').innerText = targetTime.getString()
+    };
+
+    function minutesInputFunc(event) {
+        x = document.getElementById("minutes_input");
+        if (x.value.length >= 2){
+            document.getElementById("seconds_input").focus();
+        };
+    };
+    function ENTER_func() {
+
+    };
+
+
+    function main(){
+        document.getElementById("minutes_input").focus();
+        document.getElementById("minutes_input").addEventListener('keypress', minutesInputFunc);
+
+        setTimes();
+    };
+
+    let difference;
+    let userTime = new time(0, 0 , 0);
+    let targetTime = new time(0, 0 , 0);
+    let currTime = new time(0, 0 , 0);
+
+    main();
+
+</script>
+
+</html>
