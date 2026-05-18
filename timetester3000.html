@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <html>
 
@@ -94,14 +95,12 @@
 
         userTime.mins = user_mins
         userTime.secs = user_secs
-        console.log(userTime)
 
         let error_secs = userTime.getTimeSeconds() - difference
         let early_late = '   BANG ON';
         if (error_secs<0){early_late = '   EARLY';}
         else if(error_secs>0){early_late = '   LATE';};
         let abserror = Math.abs(error_secs)
-        console.log(error_secs)
         let errorTime = new time(0,0,0)
         errorTime.setTimeFromSeconds(abserror)
         let diffTime = new time(0,0,0)
@@ -115,6 +114,11 @@
         document.getElementById("minutes_input").focus();
         document.getElementById("minutes_input").addEventListener('keypress', minutesInputFunc);
         document.getElementById("ENTER").addEventListener('click', ENTER_func)
+        // make pressing enter also do ENTER_func
+        // have a 'new test' button rather than refreshing
+        // have a test be a series of ten Qs and show total difference / avg difference
+        // show time taken for 10 Qs / per Answer
+        // error + time taken as competency metric??
         setTimes();
     };
 
