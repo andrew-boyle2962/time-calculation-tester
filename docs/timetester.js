@@ -56,7 +56,6 @@ function check_the_box(event){
     cBox.checked = !(cBox.checked)
 
     if (cBox.checked){
-        console.log(cBox.checked)
         event.currentTarget.style = "background-color: lightblue;"
     }else{
         event.currentTarget.style = "background-color: none;"
@@ -80,7 +79,6 @@ function setTimes() {
 
         const p = document.createElement("p");
         p.textContent = `#${String.fromCharCode(65+i)}.... ${song.getString()}`;
-        p.className = "noSelect";
         p.style = "margin-left:10px; margin-right:10px;"
         
 
@@ -103,7 +101,7 @@ function setTimes() {
     targetTime = new time(Math.floor(Math.random()*20)+4, Math.floor(Math.random()*60), Math.floor(Math.random()*60));
     let targetTimeSeconds = targetTime.getTimeSeconds();
 
-    difference = Math.floor(Math.random()*(total_song_length - 2*60));
+    difference = Math.floor(Math.random()*(total_song_length - 4*60))+2*60;
     seconds = targetTimeSeconds-difference;
     currTime.setTimeFromSeconds(targetTimeSeconds - difference);
 
