@@ -49,10 +49,26 @@ class songTime extends time {
     };
 }
 
-function setTimes() {
+function check_the_box(event){
+    if (event.target.tagName === "INPUT") return;
 
+    let cBox = event.currentTarget.querySelector("input")
+    cBox.checked = !(cBox.checked)
+
+    if (cBox.checked){
+        console.log(cBox.checked)
+        event.currentTarget.style = "background-color: lightblue;"
+    }else{
+        event.currentTarget.style = "background-color: none;"
+    }
+    //event.currentTarget.style = "background-color: yellow;"
+}
+
+function setTimes() {
+    songTimeList = [];
     song_container = document.getElementById("song_container");
     song_container.innerHTML = "";
+    song_container.appendChild(document.createElement("br"))
     for (let i=0; i<12; i++){
         let song = new songTime()
         songTimeList.push(song)
@@ -60,12 +76,18 @@ function setTimes() {
         const row = document.createElement("div");
         row.className = "row";
         row.dataset.songID = i;
+        row.addEventListener("click", check_the_box)
 
         const p = document.createElement("p");
         p.textContent = `#${String.fromCharCode(65+i)}.... ${song.getString()}`;
+        p.className = "noSelect";
+        p.style = "margin-left:10px; margin-right:10px;"
+        
 
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
+        checkbox.style = "margin-right:10px"
+        //checkbox.style = "display:none"
 
         row.appendChild(p);
         row.appendChild(checkbox);

@@ -13,37 +13,40 @@
         <button id="NEW_TEST" class="max_width_button">New Test</button>
     </div>
 
-    <div id="song_container" class="left">
-        <div class="row">
-            <p>i am a p</p>
-            <input type="checkbox">
+    <div class="left">
+        <p>&nbsp;</p>
+        <div id="song_container" class="container">
+
         </div>
     </div>
 
     <div id="tester" class="main">
-        <p>Current time:</p>
-        <p id="current_time_display">&nbsp;</p>
-        <p>Target time:</p>
-        <p id="target_time_display">&nbsp;</p>
+        <div class="container">
+            <br>
+            <p>Current time:</p>
+            <p id="current_time_display">&nbsp;</p>
+            <p>Target time:</p>
+            <p id="target_time_display">&nbsp;</p>
 
-        <div id="time_input" style="display:none;">
-        <p>Time remaining?:</p>
-            <input style="width: 50px" id="minutes_input" type="number" name="minutes" max="59" onKeyPress="if(this.value.length==2) return false;">
-            :
-            <input style="width: 50px" id="seconds_input" type="number" name="seconds" max="59" onKeyPress="if(this.value.length==2) return false;">
-        </div>
+            <div id="time_input" style="display:none;">
+            <p>Time remaining?:</p>
+                <input style="width: 50px" id="minutes_input" type="number" name="minutes" max="59" onKeyPress="if(this.value.length==2) return false;">
+                :
+                <input style="width: 50px" id="seconds_input" type="number" name="seconds" max="59" onKeyPress="if(this.value.length==2) return false;">
+            </div>
 
-        <br>
-        <button id="ENTER">ENTER</button>
-        <div id="results_div" style="display:none;">
-            <p>Time Remaining:</p>
-            <p id="difference_time_display">&nbsp;</p>
-            <p style="display:none;">Error:</p>
-            <p style="display:none;" id="error_time_display">&nbsp;</p>
-            <p>Your Song Time:</p>
-            <p id="user_song_time_display">&nbsp;</p>
-            <p>Song Error:</p>
-            <p id="song_time_error_display">&nbsp;</p>
+            <br>
+            <button id="ENTER">ENTER</button>
+            <div id="results_div" style="display:none;">
+                <p>Time Remaining:</p>
+                <p id="difference_time_display">&nbsp;</p>
+                <p style="display:none;">Error:</p>
+                <p style="display:none;" id="error_time_display">&nbsp;</p>
+                <p>Your Song Time:</p>
+                <p id="user_song_time_display">&nbsp;</p>
+                <p>Song Error:</p>
+                <p id="song_time_error_display">&nbsp;</p>
+            </div>
         </div>
     </div>
 </body>
