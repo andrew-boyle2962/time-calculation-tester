@@ -128,7 +128,6 @@ function ENTER_func() {
     const rows = document.querySelectorAll(".row");
     let user_song_time_seconds = 0;
     rows.forEach((row) => {
-        console.log(row.querySelector("input").checked)
         if (row.querySelector("input").checked){
             const songID = row.dataset.songID;
             const time = songTimeList[songID].getTimeSeconds()
