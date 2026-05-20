@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<html>
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="title_header" class="container">
+        <h1>Time Tester 3000</h1>
+        <button id="NEW_TEST" class="max_width_button">New Test</button>
+    </div>
+
+    <div class="left">
+        <p>&nbsp;</p>
+        <div id="song_container" class="container">
+
+        </div>
+    </div>
+
+    <div id="tester" class="main">
+        <div class="container">
+            <br>
+            <p>Current time:</p>
+            <p id="current_time_display">&nbsp;</p>
+            <p>Target time:</p>
+            <p id="target_time_display">&nbsp;</p>
+
+            <div id="time_input" style="display:none;">
+            <p>Time remaining?:</p>
+                <input style="width: 50px" id="minutes_input" type="number" name="minutes" max="59" onKeyPress="if(this.value.length==2) return false;">
+                :
+                <input style="width: 50px" id="seconds_input" type="number" name="seconds" max="59" onKeyPress="if(this.value.length==2) return false;">
+            </div>
+
+            <br>
+            <button id="ENTER">ENTER</button>
+            <div id="results_div" style="display:none;">
+                <p>Time Remaining:</p>
+                <p id="difference_time_display">&nbsp;</p>
+                <p style="display:none;">Error:</p>
+                <p style="display:none;" id="error_time_display">&nbsp;</p>
+                <p>Your Song Time:</p>
+                <p id="user_song_time_display">&nbsp;</p>
+                <p>Song Error:</p>
+                <p id="song_time_error_display">&nbsp;</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="timetester.js"></script>
+
+</html>

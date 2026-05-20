@@ -1,0 +1,45 @@
+body {
+    text-align:center;
+}
+.left, .right {
+    float: left;
+    margin: 5px;
+    width:45%;
+    display: flex;
+    justify-content: flex-end;
+}
+.main{
+    float:right;
+    margin: 5px;
+    text-align:center;
+    width:45%;
+    display: flex;
+    justify-content: flex-start;
+} 
+@media screen and (max-width: 300px) {
+    .left, .main, .right {
+        width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+    }
+}
+.row {
+    display:flex;
+    justify-content: space-between;
+    border: 1px solid black;
+    height: 45px;
+}
+.row:hover{
+    background-color: lightgrey;
+}
+.container {
+    width:fit-content;
+}
+#title_header{
+    margin:auto;
+}
+.max_width_button {
+    width:100%;
+    height:30px;
+}
+p {
+    user-select: none;
+}
