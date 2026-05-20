@@ -1,0 +1,96 @@
+class time {
+    constructor(hrs, mins, secs){
+        this.hrs = hrs;
+        this.mins = mins;
+        this.secs = secs;
+    };
+    getTimeSeconds(){
+        return this.hrs*3600 + this.mins*60 + this.secs;
+    };
+    setTimeFromSeconds(seconds){
+        this.hrs = Math.floor(seconds/3600);
+        this.mins = Math.floor((seconds%3600)/60);
+        this.secs = seconds % 60;
+    }
+    getString(){
+        let hours = this.hrs;
+        let minutes = this.mins;
+        let seconds = this.secs;
+        if (this.hrs<10){
+            hours = `0${this.hrs}`
+        }
+        if (this.mins<10){
+            minutes = `0${this.mins}`
+        }
+        if (this.secs<10){
+            seconds = `0${this.secs}`
+        }
+        return `${hours}:${minutes}:${seconds}`
+    };
+};
+
+function setTimes() {
+    targetTime = new time(Math.floor(Math.random()*20)+4, Math.floor(Math.random()*60), Math.floor(Math.random()*60));
+    let targetTimeSeconds = targetTime.getTimeSeconds();
+
+    difference = Math.floor(Math.random()*1800);
+    seconds = targetTimeSeconds-difference
+    currTime.setTimeFromSeconds(targetTimeSeconds - difference);
+
+    document.getElementById('current_time_display').innerText = currTime.getString()
+    document.getElementById('target_time_display').innerText = targetTime.getString()
+};
+
+function minutesInputFunc(event) {
+    x = document.getElementById("minutes_input");
+    if (x.value.length >= 2){
+        document.getElementById("seconds_input").focus();
+    };
+};
+function ENTER_func() {
+    let user_mins = parseInt(Math.floor( parseFloat(document.getElementById('minutes_input').value)))
+    let user_secs = parseInt(Math.floor( parseFloat(document.getElementById('seconds_input').value)))
+
+    if(Number.isInteger(user_mins) == false){
+        user_mins = 0
+    }
+    if(Number.isInteger(user_secs) == false){
+        user_secs = 0
+    }
+
+    userTime.mins = user_mins
+    userTime.secs = user_secs
+
+    let error_secs = userTime.getTimeSeconds() - difference
+    let early_late = '   BANG ON';
+    if (error_secs<0){early_late = '   EARLY';}
+    else if(error_secs>0){early_late = '   LATE';};
+    let abserror = Math.abs(error_secs)
+    let errorTime = new time(0,0,0)
+    errorTime.setTimeFromSeconds(abserror)
+    let diffTime = new time(0,0,0)
+    diffTime.setTimeFromSeconds(difference)
+    document.getElementById('difference_time_display').innerText = diffTime.getString()
+    document.getElementById('error_time_display').innerText = errorTime.getString() + early_late
+};
+
+
+function main(){
+    document.getElementById("minutes_input").focus();
+    document.getElementById("minutes_input").addEventListener('keypress', minutesInputFunc);
+    document.getElementById("ENTER").addEventListener('click', ENTER_func)
+    // make pressing enter also do ENTER_func
+    // have a 'new test' button rather than refreshing
+    // have a test be a series of ten Qs and show total difference / avg difference
+    // show time taken for 10 Qs / per Answer
+    // error + time taken as competency metric??
+    // list of songs
+    setTimes();
+};
+
+let difference;
+let userTime = new time(0, 0 , 0);
+let targetTime = new time(0, 0 , 0);
+let currTime = new time(0, 0 , 0);
+
+main();

@@ -1,0 +1,29 @@
+body {
+    text-align:center;
+}
+.left, .right {
+    float: left;
+    width:30%;
+}
+.main{
+    float:left;
+    text-align:center;
+    width:60%;
+} 
+@media screen and (max-width: 300px) {
+    .left, .main, .right {
+        width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+    }
+}
+.row {
+    display:flex;
+    justify-content: space-between;
+}
+.container {
+    width:fit-content;
+    justify-self: center;
+}
+.max_width_button {
+    width:100%;
+    height:30px;
+}
