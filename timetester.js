@@ -11,7 +11,7 @@ class time {
         this.hrs = Math.floor(seconds/3600);
         this.mins = Math.floor((seconds%3600)/60);
         this.secs = seconds % 60;
-    }
+    };
     getString(){
         let hours = this.hrs;
         let minutes = this.mins;
@@ -29,16 +29,61 @@ class time {
     };
 };
 
+class songTime extends time {
+    constructor(){
+        super(0, 0, 0);
+        this.hrs = 0;
+        this.mins = Math.floor(Math.random()*5) + 1;
+        this.secs = Math.floor(Math.random()*60);
+    };
+    getString(){
+        let minutes = this.mins;
+        let seconds = this.secs;
+        if (this.mins<10){
+            minutes = `0${this.mins}`;
+        };
+        if (this.secs<10){
+            seconds = `0${this.secs}`;
+        };
+        return `${minutes}:${seconds}`;
+    };
+}
+
 function setTimes() {
+
+    song_container = document.getElementById("song_container");
+    song_container.innerHTML = "";
+    for (let i=0; i<10; i++){
+        let song = new songTime()
+        songTimeList.push(song)
+
+        const row = document.createElement("div");
+        row.className = "row";
+        row.dataset.songID = i;
+
+        const p = document.createElement("p");
+        console.log(song)
+        console.log(song.getString())
+        p.textContent = `#${String.fromCharCode(65+i)}.... ${song.getString()}`;
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+
+        row.appendChild(p);
+        row.appendChild(checkbox);
+
+        song_container.appendChild(row);
+    };
+
     targetTime = new time(Math.floor(Math.random()*20)+4, Math.floor(Math.random()*60), Math.floor(Math.random()*60));
     let targetTimeSeconds = targetTime.getTimeSeconds();
 
     difference = Math.floor(Math.random()*1800);
-    seconds = targetTimeSeconds-difference
+    seconds = targetTimeSeconds-difference;
     currTime.setTimeFromSeconds(targetTimeSeconds - difference);
 
-    document.getElementById('current_time_display').innerText = currTime.getString()
-    document.getElementById('target_time_display').innerText = targetTime.getString()
+    document.getElementById('current_time_display').innerText = currTime.getString();
+    document.getElementById('target_time_display').innerText = targetTime.getString();
 };
 
 function minutesInputFunc(event) {
@@ -74,7 +119,6 @@ function ENTER_func() {
     document.getElementById('error_time_display').innerText = errorTime.getString() + early_late
 };
 
-
 function main(){
     document.getElementById("minutes_input").focus();
     document.getElementById("minutes_input").addEventListener('keypress', minutesInputFunc);
@@ -92,5 +136,6 @@ let difference;
 let userTime = new time(0, 0 , 0);
 let targetTime = new time(0, 0 , 0);
 let currTime = new time(0, 0 , 0);
+let songTimeList = [];
 
 main();
