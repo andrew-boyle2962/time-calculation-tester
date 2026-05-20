@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <h1>Time Tester 3000</h1>
-        <button class="max_width_button">New Test</button>
+        <button id="NEW_TEST" class="max_width_button">New Test</button>
     </div>
 
     <div id="song_container" class="left">
@@ -25,16 +25,22 @@
         <p id="current_time_display">&nbsp;</p>
         <p>Target time:</p>
         <p id="target_time_display">&nbsp;</p>
-        <p>Time remaining:</p>
+        <p>Time remaining?:</p>
         <input style="width: 50px" id="minutes_input" type="number" name="minutes" max="59" onKeyPress="if(this.value.length==2) return false;">
         :
         <input style="width: 50px" id="seconds_input" type="number" name="seconds" max="59" onKeyPress="if(this.value.length==2) return false;">
         <br><br>
         <button id="ENTER">ENTER</button>
-        <p>Answer:</p>
-        <p id="difference_time_display">&nbsp;</p>
-        <p>Error:</p>
-        <p id="error_time_display">&nbsp;</p>
+        <div id="results_div" style="display:none;">
+            <p>Actual Time Remaining:</p>
+            <p id="difference_time_display">&nbsp;</p>
+            <p>Error:</p>
+            <p id="error_time_display">&nbsp;</p>
+            <p>Your Song Time:</p>
+            <p id="user_song_time_display">&nbsp;</p>
+            <p>Song Error:</p>
+            <p id="song_time_error_display">&nbsp;</p>
+        </div>
     </div>
 </body>
 

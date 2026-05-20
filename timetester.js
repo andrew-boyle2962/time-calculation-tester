@@ -53,7 +53,7 @@ function setTimes() {
 
     song_container = document.getElementById("song_container");
     song_container.innerHTML = "";
-    for (let i=0; i<10; i++){
+    for (let i=0; i<12; i++){
         let song = new songTime()
         songTimeList.push(song)
 
@@ -62,8 +62,6 @@ function setTimes() {
         row.dataset.songID = i;
 
         const p = document.createElement("p");
-        console.log(song)
-        console.log(song.getString())
         p.textContent = `#${String.fromCharCode(65+i)}.... ${song.getString()}`;
 
         const checkbox = document.createElement("input");
@@ -75,10 +73,15 @@ function setTimes() {
         song_container.appendChild(row);
     };
 
+    let total_song_length = 0;
+    songTimeList.forEach(function(item,i) {
+        total_song_length += item.getTimeSeconds()
+    });
+
     targetTime = new time(Math.floor(Math.random()*20)+4, Math.floor(Math.random()*60), Math.floor(Math.random()*60));
     let targetTimeSeconds = targetTime.getTimeSeconds();
 
-    difference = Math.floor(Math.random()*1800);
+    difference = Math.floor(Math.random()*(total_song_length - 2*60));
     seconds = targetTimeSeconds-difference;
     currTime.setTimeFromSeconds(targetTimeSeconds - difference);
 
@@ -93,42 +96,80 @@ function minutesInputFunc(event) {
     };
 };
 function ENTER_func() {
-    let user_mins = parseInt(Math.floor( parseFloat(document.getElementById('minutes_input').value)))
-    let user_secs = parseInt(Math.floor( parseFloat(document.getElementById('seconds_input').value)))
-
+    // User input through number fields (time remaining)
+    let user_mins = parseInt(Math.floor( parseFloat(document.getElementById('minutes_input').value)));
+    let user_secs = parseInt(Math.floor( parseFloat(document.getElementById('seconds_input').value)));
     if(Number.isInteger(user_mins) == false){
-        user_mins = 0
-    }
+        user_mins = 0;
+    };
     if(Number.isInteger(user_secs) == false){
-        user_secs = 0
-    }
+        user_secs = 0;
+    };
+    userTime.mins = user_mins;
+    userTime.secs = user_secs;
 
-    userTime.mins = user_mins
-    userTime.secs = user_secs
-
-    let error_secs = userTime.getTimeSeconds() - difference
+    // Calculate and display error
+    let error_secs = userTime.getTimeSeconds() - difference;
     let early_late = '   BANG ON';
-    if (error_secs<0){early_late = '   EARLY';}
-    else if(error_secs>0){early_late = '   LATE';};
-    let abserror = Math.abs(error_secs)
-    let errorTime = new time(0,0,0)
-    errorTime.setTimeFromSeconds(abserror)
-    let diffTime = new time(0,0,0)
-    diffTime.setTimeFromSeconds(difference)
-    document.getElementById('difference_time_display').innerText = diffTime.getString()
-    document.getElementById('error_time_display').innerText = errorTime.getString() + early_late
+    if (error_secs<0){
+        early_late = '   EARLY';
+    } else if(error_secs>0){
+        early_late = '   LATE';
+    };
+    let abserror = Math.abs(error_secs);
+    let errorTime = new time(0,0,0);
+    errorTime.setTimeFromSeconds(abserror);
+    let diffTime = new time(0,0,0);
+    diffTime.setTimeFromSeconds(difference);
+    document.getElementById('difference_time_display').innerText = diffTime.getString();
+    document.getElementById('error_time_display').innerText = errorTime.getString() + early_late;
+
+    // Get total song time from user marked checkboxes
+    const rows = document.querySelectorAll(".row");
+    let user_song_time_seconds = 0;
+    rows.forEach((row) => {
+        console.log(row.querySelector("input").checked)
+        if (row.querySelector("input").checked){
+            const songID = row.dataset.songID;
+            const time = songTimeList[songID].getTimeSeconds()
+            user_song_time_seconds += time
+        };
+    });
+
+    // Calculate and display error based on selected songs
+    error_secs = user_song_time_seconds - difference;
+    early_late = '   BANG ON';
+    if (error_secs<0){
+        early_late = '   EARLY';
+    } else if(error_secs>0){
+        early_late = '   LATE';
+    };
+    abserror = Math.abs(error_secs);
+    errorTime.setTimeFromSeconds(abserror);
+    let userSongTime = new time(0,0,0);
+    userSongTime.setTimeFromSeconds(user_song_time_seconds);
+    document.getElementById('user_song_time_display').innerText = userSongTime.getString();
+    document.getElementById('song_time_error_display').innerText = errorTime.getString() + early_late;
+
+    document.getElementById("results_div").style.display = "block";
+};
+
+function NEW_TEST_func(){
+    setTimes();
+    document.getElementById('minutes_input').value="";
+    document.getElementById('seconds_input').value="";
+    document.getElementById("results_div").style.display = "none";
 };
 
 function main(){
     document.getElementById("minutes_input").focus();
     document.getElementById("minutes_input").addEventListener('keypress', minutesInputFunc);
-    document.getElementById("ENTER").addEventListener('click', ENTER_func)
+    document.getElementById("ENTER").addEventListener('click', ENTER_func);
+    document.getElementById("NEW_TEST").addEventListener('click', NEW_TEST_func);
     // make pressing enter also do ENTER_func
-    // have a 'new test' button rather than refreshing
     // have a test be a series of ten Qs and show total difference / avg difference
     // show time taken for 10 Qs / per Answer
     // error + time taken as competency metric??
-    // list of songs
     setTimes();
 };
 
